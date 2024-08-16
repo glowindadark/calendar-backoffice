@@ -1,15 +1,16 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { CreateEvent } from '../CreateEvent';
 
 export const Header = () => {
-  const router = useRouter();
+  const [isCreateEvent, setIsCreateEvent] = useState<boolean>(false);
   return (
     <header className='bg-white'>
       <div className='mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8'>
         <div className='flex h-16 items-center justify-between'>
           <div className='flex-1 md:flex md:items-center md:gap-12'>
-            <a className='block text-teal-600' onClick={() => router.push('/')}>
+            <a className='block text-teal-600'>
               <span className='sr-only'>Home</span>
               <svg
                 className='h-8'
@@ -25,12 +26,12 @@ export const Header = () => {
             </a>
           </div>
 
-          <div className='md:flex md:items-center md:gap-12'>
+          <div className='md:flex md:items-center md:gap-12 cursor-pointer'>
             <div className='flex items-center gap-4'>
               <div className='sm:flex sm:gap-4'>
                 <a
                   className='rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow'
-                  onClick={() => alert('Add event')}
+                  onClick={() => setIsCreateEvent(true)}
                 >
                   Add event
                 </a>
@@ -39,6 +40,9 @@ export const Header = () => {
           </div>
         </div>
       </div>
+      {isCreateEvent && (
+        <CreateEvent setIsCreateEventModalOpen={setIsCreateEvent} />
+      )}
     </header>
   );
 };
